@@ -14,6 +14,7 @@ function blinkRed() {
     console.log(`count: ${count} / RED OFF`);
   }
 
+  count++;
   setTimeout(blinkRed, 1000);
 }
 
@@ -50,12 +51,16 @@ function turnOffAllLED() {
   setTimeout(turnOffAllLED, 1000);
 }
 
+function ticktok() {
+  count++;
+  setTimeout(ticktok, 1000);
+}
 gpio.setup("wpi");
 gpio.pinMode(RED, gpio.OUTPUT);
 gpio.pinMode(BLUE, gpio.OUTPUT);
 gpio.pinMode(GREEN, gpio.OUTPUT);
 
-setTimeout(() => count++, 1000);
+ticktok();
 blinkRed();
 blinkGreen();
 blinkBlue();
