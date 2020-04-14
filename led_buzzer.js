@@ -28,4 +28,3 @@ gpio.setup("wpi");
 gpio.pinMode(BUZZER, gpio.OUTPUT);
 gpio.pinMode(RED, gpio.OUTPUT);
 turnOnRed();
-turnOnBuzzer();
