@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/plm9606/Raspberry/issues"
   },
-  "homepage": "https://github.com/plm9606/Raspberry#readme"
+  "homepage": "https://github.com/plm9606/Raspberry#readme",
+  "dependencies": {
+    "node-wiring-pi": "0.0.5"
+  }
 }
