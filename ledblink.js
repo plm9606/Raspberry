@@ -4,63 +4,65 @@ const RED = 28;
 const GREEN = 27;
 
 let count = 0;
+let redFlag = 0;
+let blueFlag = 0;
+let greenFlag = 0;
 
 function blinkRed() {
-  if (count % 2) {
+  if (redFlag == 0) {
     gpio.digitalWrite(RED, 1);
-    console.log(`count: ${count} / RED ON`);
+    console.log(` / RED ON`);
+    redFlag = 1;
   } else {
     gpio.digitalWrite(RED, 0);
-    console.log(`count: ${count} / RED OFF`);
+    console.log(` / RED OFF`);
+    redFlag = 0;
   }
 
-  count++;
   setTimeout(blinkRed, 1000);
 }
 
 function blinkBlue() {
-  if (count % 4 === 0) {
+  if (blueFlag == 0) {
     gpio.digitalWrite(BLUE, 1);
-    console.log(`count: ${count} / BLUE ON`);
-  } else if (count % 2 === 0) {
+    console.log(` / BLUE ON`);
+    blueFlag = 1;
+  } else {
     gpio.digitalWrite(BLUE, 0);
-    console.log(`count: ${count} / BLUE OFF`);
+    console.log(` / BLUE OFF`);
+    blueFlag = 0;
   }
-  setTimeout(blinkBlue, 1000);
+  setTimeout(blinkBlue, 2000);
 }
 
 function blinkGreen() {
-  if (count % 3 === 0) {
+  if (greenFlag == 0) {
     gpio.digitalWrite(GREEN, 1);
-    console.log(`count: ${count} / GREEN ON`);
+    console.log(` / GREEN ON`);
+    greenFlag = 1;
   } else {
     gpio.digitalWrite(GREEN, 0);
-    console.log(`count: ${count} / GREEN OFF`);
+    console.log(` / GREEN OFF`);
+    greenFlag = 0;
   }
-  setTimeout(blinkGreen, 1000);
+  setTimeout(blinkGreen, 3000);
 }
 
 function turnOffAllLED() {
-  if (count % 10 === 0) {
-    gpio.digitalWrite(RED, 0);
-    gpio.digitalWrite(GREEN, 0);
-    gpio.digitalWrite(BLUE, 0);
+  gpio.digitalWrite(RED, 0);
+  gpio.digitalWrite(GREEN, 0);
+  gpio.digitalWrite(BLUE, 0);
 
-    console.log(`count: ${count} / turn off ALL`);
-  }
-  setTimeout(turnOffAllLED, 1000);
+  console.log(` / turn off ALL`);
+
+  setTimeout(turnOffAllLED, 10000);
 }
 
-function ticktok() {
-  count++;
-  setTimeout(ticktok, 1000);
-}
 gpio.setup("wpi");
 gpio.pinMode(RED, gpio.OUTPUT);
 gpio.pinMode(BLUE, gpio.OUTPUT);
 gpio.pinMode(GREEN, gpio.OUTPUT);
 
-ticktok();
 blinkRed();
 blinkGreen();
 blinkBlue();
