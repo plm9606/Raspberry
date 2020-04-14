@@ -4,10 +4,10 @@ let flag = 0;
 
 function timoutHandler() {
   if (flag > 0) {
-    gpio.digitalWirte(LEDPIN, 1);
+    gpio.digitalWrite(LEDPIN, 1);
     console.log("Node LED ON");
   } else {
-    gpio.digitalWirte(LEDPIN, 0);
+    gpio.digitalWrite(LEDPIN, 0);
     console.log("Node LED OFF");
   }
   setTimeout(timoutHandler, 1000);
