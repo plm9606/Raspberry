@@ -1,2 +1,2 @@
-# rasberry
-rasberry pi 프로젝트
+# Raspberry
+Raspberry pi 프로젝트
