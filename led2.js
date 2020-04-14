@@ -38,3 +38,11 @@ gpio.pinMode(RED, gpio.OUTPUT);
 gpio.pinMode(BLUE, gpio.OUTPUT);
 gpio.pinMode(GREEN, gpio.OUTPUT);
 timoutHandler();
+
+process.on("SIGINT", function () {
+  console.log("Caught interrupt signal");
+  gpio.digitalWrite(RED, 0);
+  gpio.digitalWrite(GREEN, 0);
+  gpio.digitalWrite(BLUE, 0);
+  console.log("node All OFF");
+});
