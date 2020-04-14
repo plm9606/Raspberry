@@ -66,10 +66,9 @@ gpio.pinMode(GREEN, gpio.OUTPUT);
 blinkRed();
 blinkGreen();
 blinkBlue();
-turnOffAllLED();
+setTimeout(turnOffAllLED, 10000);
 
 process.on("SIGINT", function () {
-  console.log("Caught interrupt signal");
   gpio.digitalWrite(RED, 0);
   gpio.digitalWrite(GREEN, 0);
   gpio.digitalWrite(BLUE, 0);
