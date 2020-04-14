@@ -45,4 +45,5 @@ process.on("SIGINT", function () {
   gpio.digitalWrite(GREEN, 0);
   gpio.digitalWrite(BLUE, 0);
   console.log("node All OFF");
+  process.exit();
 });
