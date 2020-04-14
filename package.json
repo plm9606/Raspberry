@@ -1,0 +1,19 @@
+{
+  "name": "raspberry",
+  "version": "1.0.0",
+  "description": "Raspberry pi 프로젝트",
+  "main": "led1.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/plm9606/Raspberry.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/plm9606/Raspberry/issues"
+  },
+  "homepage": "https://github.com/plm9606/Raspberry#readme"
+}
