@@ -9,47 +9,39 @@ const TRIG = 27,
 
 let count = 0;
 let startTime, travelTime;
+let TRIGGER = false;
 
 async function detectButton() {
   console.log(`Pressed! ${count}`);
-  //   await new Promise((resolve, rej) => {
-  //     if (count++ % 2 == 0) {
-  //       gpio.digitalWrite(BUZZER, 1);
-  //       resolve();
-  //     } else {
-  //         gpio.digitalWrite(BUZZER, 1);
-  //         gpio.digitalWrite(BUZZER, 0);
-  //         gpio.digitalWrite(BUZZER, 1);
-  //       resolve();
-  //     }
-  //   });
 
   await buzzerOn(100);
 }
 
 async function buzzerOn(ms) {
   if (count++ % 2 == 0) {
+    TRIGGER = true;
     gpio.digitalWrite(BUZZER, 1);
-    await sleep(ms);
+    sleep(ms);
     activateLed();
     triggering();
   } else {
-    await buzzerPiPi(ms);
+    buzzerPiPi(ms);
     inactivateLed();
-    inactivateTrigger();
+    TRIGGER = false;
   }
 }
 
 async function buzzerPiPi(ms) {
   gpio.digitalWrite(BUZZER, 1);
-  await sleep(10);
+  sleep(10);
   gpio.digitalWrite(BUZZER, 0);
-  await sleep(10);
+  sleep(10);
   gpio.digitalWrite(BUZZER, 1);
-  await sleep(ms - 20);
+  sleep(ms - 20);
 }
 
 function triggering() {
+  if (!TRIGGER) return;
   gpio.digitalWrite(TRIG, gpio.LOW);
   gpio.delayMicroseconds(2);
   gpio.digitalWrite(TRIG, gpio.HIGH);
@@ -72,8 +64,6 @@ function triggering() {
 
 function inactivateTrigger() {
   console.log("inactivate trigger");
-  gpio.digitalWrite(TRIG, 0);
-  gpio.digitalWrite(ECHO, 0);
 }
 function activateLed() {
   console.log("activate LED");
