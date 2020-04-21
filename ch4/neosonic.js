@@ -33,22 +33,22 @@ async function ledOn() {
   gpio.digitalWrite(RED, 1);
   gpio.digitalWrite(BLUE, 1);
   gpio.digitalWrite(GREEN, 1);
-  await sleep(400);
+  await sleep(1000);
 
   gpio.digitalWrite(BLUE, 0);
   gpio.digitalWrite(GREEN, 0);
-  await sleep(400);
+  await sleep(1000);
 
   gpio.digitalWrite(RED, 0);
   gpio.digitalWrite(GREEN, 1);
-  await sleep(400);
+  await sleep(1000);
 
   gpio.digitalWrite(GREEN, 0);
   gpio.digitalWrite(BLUE, 1);
-  await sleep(400);
+  await sleep(1000);
 
   gpio.digitalWrite(BLUE, 0);
-  await sleep(400);
+  await sleep(1000);
 }
 
 function sleep(ms) {
