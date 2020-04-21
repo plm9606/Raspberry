@@ -25,8 +25,12 @@ function triggering() {
     console.log(`Distance: ${distance}cm`);
   }
 
-  ledOn();
-  setTimeout(triggering, 500);
+  new Promise((res) => {
+    ledOn();
+    res();
+  }).then(() => {
+    setTimeout(triggering, 500);
+  });
 }
 
 async function ledOn() {
@@ -57,6 +61,9 @@ function sleep(ms) {
 
 process.on("SIGINT", function () {
   console.log("node OFF");
+  gpio.digitalWrite(BLUE, 0);
+  gpio.digitalWrite(RED, 0);
+  gpio.digitalWrite(GREEN, 0);
   process.exit();
 });
 
