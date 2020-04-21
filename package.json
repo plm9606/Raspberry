@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/plm9606/Raspberry#readme",
   "dependencies": {
+    "@bartando/rpi-ws281x-neopixel": "^1.0.1",
     "node-wiring-pi": "0.0.5"
   }
 }
