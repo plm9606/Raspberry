@@ -32,5 +32,4 @@ process.on("SIGINT", function () {
 gpio.wiringPiSetup();
 gpio.pinMode(TRIG, gpio.OUTPUT);
 gpio.pinMode(ECHO, gpio.INPUT);
-gpio.wiringPiISR(BUTTON, gpio.INT_EDGE_FALLING, detectButton);
 setImmediate(triggering);
