@@ -23,17 +23,10 @@ async function triggering() {
   let distance = travelTime / 58;
   if (distance < 400) {
     console.log(`Distance: ${distance}cm`);
-    if (distance < 50) {
+    if (distance < 5) {
       await ledOn();
     }
   }
-
-  //   new Promise((res) => {
-  //     ledOn();
-  //     res();
-  //   }).then(() => {
-  //     setTimeout(triggering, 500);
-  //   });
 
   setTimeout(triggering, 500);
 }
