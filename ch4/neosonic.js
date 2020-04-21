@@ -7,7 +7,7 @@ const TRIG = 27,
 
 let startTime, travelTime;
 
-function triggering() {
+async function triggering() {
   gpio.digitalWrite(TRIG, gpio.LOW);
   gpio.delayMicroseconds(2);
   gpio.digitalWrite(TRIG, gpio.HIGH);
@@ -23,14 +23,19 @@ function triggering() {
   let distance = travelTime / 58;
   if (distance < 400) {
     console.log(`Distance: ${distance}cm`);
+    if (distance < 50) {
+      await ledOn();
+    }
   }
 
-  new Promise((res) => {
-    ledOn();
-    res();
-  }).then(() => {
-    setTimeout(triggering, 500);
-  });
+  //   new Promise((res) => {
+  //     ledOn();
+  //     res();
+  //   }).then(() => {
+  //     setTimeout(triggering, 500);
+  //   });
+
+  setTimeout(triggering, 500);
 }
 
 async function ledOn() {
