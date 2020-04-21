@@ -11,7 +11,6 @@ let count = 0;
 let startTime, travelTime;
 
 async function detectButton() {
-  inactivateLed();
   console.log(`Pressed! ${count}`);
   //   await new Promise((resolve, rej) => {
   //     if (count++ % 2 == 0) {
@@ -32,9 +31,11 @@ async function buzzerOn(ms) {
   if (count++ % 2 == 0) {
     gpio.digitalWrite(BUZZER, 1);
     await sleep(ms);
+    activateLed();
     triggering();
   } else {
     await buzzerPiPi(ms);
+    inactivateLed();
     inactivateTrigger();
   }
 }
@@ -49,7 +50,6 @@ async function buzzerPiPi(ms) {
 }
 
 function triggering() {
-  activateLed();
   gpio.digitalWrite(TRIG, gpio.LOW);
   gpio.delayMicroseconds(2);
   gpio.digitalWrite(TRIG, gpio.HIGH);
@@ -87,8 +87,13 @@ function inactivateLed() {
   gpio.digitalWrite(RED, 0);
 }
 
-function sleep(ms) {
-  return new Promise((res) => setTimeout(res, ms));
+// function sleep(ms) {
+//   return new Promise((res) => setTimeout(res, ms));
+// }
+
+function sleep(delay) {
+  var start = new Date().getTime();
+  while (new Date().getTime() < start + delay);
 }
 
 process.on("SIGINT", function () {
