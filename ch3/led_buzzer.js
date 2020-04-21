@@ -1,9 +1,15 @@
 const gpio = require("node-wiring-pi");
-const BUZZER = 29;
+const BUZZER = 24;
 const RED = 28;
+const GREEN = 29;
+const BLUE = 27;
+
+const flag = 0;
 
 function turnOnRed() {
   gpio.digitalWrite(BUZZER, 0);
+
+  if(flag)
   gpio.digitalWrite(RED, 1);
   console.log("LED on, Buzzer off");
   setTimeout(turnOnBuzzer, 1000);
