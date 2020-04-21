@@ -25,19 +25,22 @@ async function buzzerOn(ms) {
     activateLed();
     triggering();
   } else {
-    buzzerPiPi(ms);
+    buzzerPiPi();
     inactivateLed();
     TRIGGER = false;
   }
 }
 
-async function buzzerPiPi(ms) {
-  gpio.digitalWrite(BUZZER, 1);
-  sleep(10);
+async function buzzerPiPi() {
   gpio.digitalWrite(BUZZER, 0);
-  sleep(10);
+  sleep(20);
   gpio.digitalWrite(BUZZER, 1);
-  sleep(ms - 20);
+  sleep(30);
+  gpio.digitalWrite(BUZZER, 0);
+  sleep(20);
+  gpio.digitalWrite(BUZZER, 1);
+  sleep(30);
+  gpio.digitalWrite(BUZZER, 0);
 }
 
 function triggering() {
