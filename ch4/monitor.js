@@ -30,6 +30,7 @@ async function buzzerOn(ms) {
     TRIGGER = true;
     gpio.digitalWrite(BUZZER, 1);
     gpio.delay(ms);
+    gpio.digitalWrite(BUZZER, 0);
     activateLed(RED);
     triggering();
   } else {
@@ -75,10 +76,10 @@ function triggering() {
     if (distance >= 5 && distance < 15) {
       for (let j = 0; j < NUM_LEDS; j++) {
         if (j < NUM_LEDS / 2) {
-          ws281x.setPixelCoror(i, RED);
+          ws281x.setPixelCoror(j, RED);
           ws281x.show();
         } else {
-          ws281x.setPixelCoror(i, BLUE);
+          ws281x.setPixelCoror(j, BLUE);
           ws281x.show();
         }
       }
