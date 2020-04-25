@@ -25,7 +25,7 @@ async function detectButton() {
 }
 
 async function buzzerOn(ms) {
-  if (count % 2 == 0) {
+  if (count % 2 !== 0) {
     runBuzzer(ms);
     activateLed(RED);
     triggering();
