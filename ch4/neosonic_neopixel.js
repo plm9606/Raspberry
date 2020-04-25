@@ -44,8 +44,10 @@ async function ledOn(color, max) {
 }
 
 function ledTime(color, max) {
+  ledOn(color, max);
+
   for (let i = 0; i < max; i++) {
-    ws281x.setPixelColor(i, color);
+    ws281x.setPixelColor(i, { r: 0, g: 0, b: 0 });
     ws281x.show();
     gpio.delay(200);
   }
