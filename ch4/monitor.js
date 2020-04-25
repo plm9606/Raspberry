@@ -92,7 +92,7 @@ function triggering() {
 
 function activateLed(color) {
   for (let i = 0; i < NUM_LEDS; i++) {
-    ws281x.setPixelCoror(i, color);
+    ws281x.setPixelColor(i, color);
     ws281x.show();
   }
 }
