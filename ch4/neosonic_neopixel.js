@@ -6,7 +6,7 @@ const TRIG = 27,
 
 let startTime, travelTime;
 
-ws281x.init({ count: NUM_LEDS, stripType: ws281x.WS2811_STRIP_RGB });
+ws281x.init({ count: NUM_LEDS, stripType: ws281x.WS2811_STRIP_GRB });
 ws281x.setBrightness(10);
 
 async function triggering() {
@@ -28,7 +28,7 @@ async function triggering() {
   if (distance < 400) {
     console.log(`Distance: ${distance}cm`);
     if (distance < 5 && distance > 0) {
-      ledTime({ r: 180, g: 0, b: 0 }, NUM_LEDS);
+      ledTime({  b: 0, g:0, r:180}, NUM_LEDS);
     }
   }
 
@@ -45,7 +45,7 @@ async function ledOn(color, max) {
 
 function ledTime(color, max) {
   ledOn(color, max);
-
+	let {r,g,b} = color;
   for (let i = 0; i < max; i++) {
     ws281x.setPixelColor(i, { r: 0, g: 0, b: 0 });
     ws281x.show();
