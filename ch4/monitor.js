@@ -17,7 +17,7 @@ let TRIGGER = false;
 
 let triggerTimer;
 
-ws281x.init({ count: NUM_LEDS, stripType: ws281x.WS2811_STRIP_GRB });
+ws281x.init({ count: NUM_LEDS, stripType: ws281x.WS2811_STRIP_RGB });
 ws281x.setBrightness(10);
 
 async function detectButton() {
@@ -76,10 +76,10 @@ function triggering() {
     if (distance >= 5 && distance < 15) {
       for (let j = 0; j < NUM_LEDS; j++) {
         if (j < NUM_LEDS / 2) {
-          ws281x.setPixelCoror(j, RED);
+          ws281x.setPixelColor(j, RED);
           ws281x.show();
         } else {
-          ws281x.setPixelCoror(j, BLUE);
+          ws281x.setPixelColor(j, BLUE);
           ws281x.show();
         }
       }
