@@ -17,16 +17,16 @@ let TRIGGER = false;
 
 let triggerTimer;
 
-ws281x.init({ count: NUM_LEDS, stripType: ws281x.WS2811_STRIP_RGB });
+ws281x.init({ count: NUM_LEDS, stripType: ws281x.WS2811_STRIP_GRB });
 ws281x.setBrightness(10);
 
 async function detectButton() {
-  console.log(`Pressed! ${count}`);
+  console.log(`Pressed! ${++count}`);
   await buzzerOn(100);
 }
 
-async function buzzerOn(ms) {
-  if (count++ % 2 == 0) {
+async function buzzerOn(ms){
+  if (count % 2 == 0) {
     TRIGGER = true;
     gpio.digitalWrite(BUZZER, 1);
     gpio.delay(ms);
