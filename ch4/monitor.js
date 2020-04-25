@@ -13,30 +13,25 @@ const RED = { r: 180, g: 0, b: 0 },
 
 let count = 0;
 let startTime, travelTime;
-let TRIGGER = false;
-
 let triggerTimer;
 
 ws281x.init({ count: NUM_LEDS, stripType: ws281x.WS2811_STRIP_GRB });
 ws281x.setBrightness(10);
 
 async function detectButton() {
-  console.log(`Pressed! ${++count}`);
+  count++;
+  console.log(`Pressed! ${count}`);
   await buzzerOn(100);
 }
 
-async function buzzerOn(ms){
+async function buzzerOn(ms) {
   if (count % 2 == 0) {
-    TRIGGER = true;
-    gpio.digitalWrite(BUZZER, 1);
-    gpio.delay(ms);
-    gpio.digitalWrite(BUZZER, 0);
+    runBuzzer(ms);
     activateLed(RED);
     triggering();
   } else {
     activateLed(GREEN);
     buzzerPiPi();
-    TRIGGER = false;
     if (triggerTimer) {
       clearTimeout(triggerTimer);
       triggerTimer = null;
@@ -44,20 +39,7 @@ async function buzzerOn(ms){
   }
 }
 
-async function buzzerPiPi() {
-  gpio.digitalWrite(BUZZER, 0);
-  gpio.delay(20);
-  gpio.digitalWrite(BUZZER, 1);
-  gpio.delay(30);
-  gpio.digitalWrite(BUZZER, 0);
-  gpio.delay(20);
-  gpio.digitalWrite(BUZZER, 1);
-  gpio.delay(30);
-  gpio.digitalWrite(BUZZER, 0);
-}
-
 function triggering() {
-  // if (!TRIGGER) return;
   gpio.digitalWrite(TRIG, gpio.LOW);
   gpio.delayMicroseconds(2);
   gpio.digitalWrite(TRIG, gpio.HIGH);
@@ -65,8 +47,8 @@ function triggering() {
   gpio.digitalWrite(TRIG, gpio.LOW);
 
   while (gpio.digitalRead(ECHO) == gpio.LOW);
-
   startTime = gpio.micros();
+
   while (gpio.digitalRead(ECHO) == gpio.HIGH);
   travelTime = gpio.micros() - startTime;
 
@@ -85,6 +67,8 @@ function triggering() {
       }
     } else if (distance >= 15) {
       activateLed(BLUE);
+    } else {
+      activateLed(RED);
     }
   }
 
@@ -96,6 +80,20 @@ function activateLed(color) {
     ws281x.setPixelColor(i, color);
     ws281x.show();
   }
+}
+
+function runBuzzer(ms) {
+  gpio.digitalWrite(BUZZER, 1);
+  gpio.delay(ms);
+  gpio.digitalWrite(BUZZER, 0);
+}
+
+function buzzerPiPi() {
+  gpio.digitalWrite(BUZZER, 0);
+  gpio.delay(20);
+  runBuzzer(30);
+  gpio.delay(20);
+  runBuzzer(30);
 }
 
 process.on("SIGINT", function () {
