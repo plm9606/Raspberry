@@ -87,17 +87,16 @@ const buzzer = {
   off: function () {
     gpio.digitalWrite(BUZZER, 0);
   },
+  ringAtIntervals: function (ms) {
+    gpio.digitalWrite(BUZZER, 1);
+    gpio.delay(ms * 0.5);
+    gpio.digitalWrite(BUZZER, 0);
+    console.log(`${ms}ms 간격으로 울린다`);
+    buzzerTimeout = setTimeout(function () {
+      buzzer.ringAtIntervals(ms);
+    }, ms);
+  },
 };
-
-function ringAtIntervals(ms) {
-  gpio.digitalWrite(BUZZER, 1);
-  gpio.delay(ms * 0.5);
-  gpio.digitalWrite(BUZZER, 0);
-  console.log(`${ms}ms 간격으로 울린다`);
-  buzzerTimeout = setTimeout(function () {
-    ringAtIntervals(ms);
-  }, ms);
-}
 
 const detectCar = (lightData) => {
   if (lightData > 3000) {
@@ -117,7 +116,7 @@ const detectCar = (lightData) => {
       clearTimeout(buzzerTimeout);
       vehicleTrafficLights.turnRed();
       pedestrianTrafficLights.turnGreen();
-      ringAtIntervals(1000);
+      buzzer.ringAtIntervals(1000);
       lightTimeout = setTimeout(analogLight, 0);
     }, 5000);
   }
@@ -133,7 +132,7 @@ const detectButton = () => {
 
     pedestrianTrafficLights.turnGreen();
     vehicleTrafficLights.turnRed();
-    ringAtIntervals(500);
+    buzzer.ringAtIntervals(500);
 
     setTimeout(() => {
       console.log(`버튼을 누르고 6초가 지났습니다. `);
