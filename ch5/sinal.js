@@ -41,7 +41,10 @@ const analogLight = () => {
     lightdata = reading.rawValue;
   });
   if (lightdata != -1) {
-    io.sockets.emit("watch", lightdata);
+    io.sockets.emit("watch", {
+      red: gpio.digitalRead(RED),
+      green: gpio.digitalRead(GREEN),
+    });
 
     detectCar(lightdata);
 
@@ -146,7 +149,7 @@ const detectButton = () => {
 };
 
 const serverBody = (req, res) => {
-  fs.readFile("views/plotly_light.html", "utf8", (err, data) => {
+  fs.readFile("views/sinal.html", "utf8", (err, data) => {
     res.writeHead(200, { "Content-Type": "text/html" });
     res.end(data);
   });
@@ -164,6 +167,7 @@ process.on("SIGINT", () => {
 
 const server = http.createServer(serverBody);
 const io = socketio.listen(server);
+
 io.sockets.on("connection", (socket) => {
   socket.on("startmsg", (data) => {
     console.log(`가동 메세지 수신(측정주기: ${data})`);
