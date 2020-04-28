@@ -23,7 +23,8 @@ const light = mcpadc.openMcp3208(LIGHT, { speedHz }, (err) => {
 });
 
 const getLedPercent = (lightdata) => {
-  return Math.floor((lightdata / 4096) * 100 * NUM_LEDS);
+	console.log(`${Math.floor((lightdata / 4096) *100)}%`);
+	return Math.floor((lightdata / 4096) * NUM_LEDS);
 };
 const analogLight = () => {
   light.read((err, reading) => {
@@ -63,13 +64,13 @@ const ledOn = (color, max) => {
 };
 
 const ledTime = (max) => {
-  ledOn({ r: 180, g: 0, b: 0 }, NUM_LEDS);
+  ledOn({ r: 180, g: 0, b: 0 }, max);
 
-  //   for (let i = 0; i < max; i++) {
-  //     ws281x.setPixelColor(i, { r: 0, g: 0, b: 0 });
-  //     ws281x.show();
-  //     gpio.delay(100);
-  //   }
+     for (let i = 0; i < max; i++) {
+       ws281x.setPixelColor(i, { r: 0, g: 0, b: 0 });
+       ws281x.show();
+       gpio.delay(100);
+     }
 };
 
 process.on("SIGINT", () => {

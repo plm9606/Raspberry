@@ -29,7 +29,8 @@ const analogLight = () => {
   });
   if (lightdata != -1) {
     io.sockets.emit("watch", lightdata);
-
+	
+	console.log(`${lightdata/4095*100}%`);
     if (lightdata > 2200) {
       ledTime(NUM_LEDS);
     } else if (lightdata < 1000) {
