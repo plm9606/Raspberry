@@ -21,6 +21,9 @@ const NEO_COLOR = {
   RED: { r: 180, g: 0, b: 0 },
 };
 let timerId,
+  detectCarId,
+  detectCarId2,
+  ringId,
   timeout = 800; // 타이머제어용
 let lightdata = -1; // 조도값 측정데이터 저장용
 
@@ -40,9 +43,9 @@ const analogLight = () => {
   if (lightdata != -1) {
     io.sockets.emit("watch", lightdata);
 
-    detectCar(lightData);
+    detectCar(lightdata);
 
-    timerId = setTimeout(analogLight, timeout);
+    // timerId = setTimeout(analogLight, timeout);
   }
 };
 
@@ -81,50 +84,66 @@ const pedestrianTrafficLights = {
 };
 
 const buzzer = {
-  on: function (ms) {},
   off: function () {
     gpio.digitalWrite(BUZZER, 0);
   },
-  ringAtIntervals: function (ms) {
-    gpio.digitalWrite(BUZZER, 1);
-    gpio.delay(ms * 0.2);
-    setTimeout(buzzer.ringAtIntervals(ms), ms);
-  },
 };
+
+function ringAtIntervals(ms) {
+  gpio.digitalWrite(BUZZER, 1);
+  gpio.delay(ms * 0.5);
+  gpio.digitalWrite(BUZZER, 0);
+  console.log(`${ms}ms 간격으로 울린다`);
+  ringId = setTimeout(function(){ringAtIntervals(ms)}, ms);
+}
 
 const detectCar = (lightData) => {
   if (lightData > 3000) {
     console.log(`조도센서가 차량 감지함. 5초 기다림`);
-    gpio.delay(5000);
+    //gpio.delay(5000);
 
-    vehicleTrafficLights.turnGreen();
-    pedestrianTrafficLights.turnRed();
-    buzzer.off();
+    detectCarId = setTimeout(() => {
+	  clearTimeout(ringId);
+      vehicleTrafficLights.turnGreen();
+      pedestrianTrafficLights.turnRed();
+      buzzer.off();
+      timerId = setTimeout(analogLight, 0);
+    }, 5000);
   } else {
     console.log("밝음이 감지됨. 5초 기다림");
-    gpio.delay(5000);
-    vehicleTrafficLights.turnRed();
-    pedestrianTrafficLights.turnGreen();
-    buzzer.ringAtIntervals(1000);
+    //gpio.delay(5000);
+
+    detectCarId2 = setTimeout(() => {
+	  clearTimeout(ringId);
+      vehicleTrafficLights.turnRed();
+      pedestrianTrafficLights.turnGreen();
+      ringAtIntervals(1000);
+      timerId = setTimeout(analogLight, 0);
+    }, 5000);
   }
 };
 
 const detectButton = () => {
   console.log(`Button Pressed!`);
-  clearTimeout(timerId);
 
   if (pedestrianTrafficLights.isRed()) {
+    clearTimeout(timerId);
+    clearTimeout(detectCarId);
+    clearTimeout(detectCarId2);
+
     pedestrianTrafficLights.turnGreen();
     vehicleTrafficLights.turnRed();
-    buzzer.ringAtIntervals(500);
-  }
+    ringAtIntervals(500);
 
-  setTimeout(() => {
-    buzzer.off();
-    pedestrianTrafficLights.turnRed();
-    vehicleTrafficLights.turnGreen();
-    timerId = setTimeout(analogLight, timeout);
-  }, 6000);
+    setTimeout(() => {
+      console.log(`버튼을 누르고 6초가 지났습니다. `);
+      clearTimeout(ringId);
+      buzzer.off();
+      pedestrianTrafficLights.turnRed();
+      vehicleTrafficLights.turnGreen();
+      timerId = setTimeout(analogLight, timeout);
+    }, 6000);
+  }
 };
 
 const serverBody = (req, res) => {
@@ -132,14 +151,6 @@ const serverBody = (req, res) => {
     res.writeHead(200, { "Content-Type": "text/html" });
     res.end(data);
   });
-};
-
-const ledOn = (color, max) => {
-  for (let i = 0; i < max; i++) {
-    ws281x.setPixelColor(i, color);
-    ws281x.show();
-    gpio.delay(1);
-  }
 };
 
 process.on("SIGINT", () => {
@@ -164,7 +175,10 @@ io.sockets.on("connection", (socket) => {
   socket.on("stopmsg", (data) => {
     console.log(`중지 메세지 수신`);
     clearTimeout(timerId);
-  });
+    clearTimeout(detectCarId);
+    clearTimeout(detectCarId2);
+	clearTimeout(ringId);
+	});
 });
 
 server.listen(65001, () => {
