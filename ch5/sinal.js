@@ -100,7 +100,7 @@ const buzzer = {
 
 const detectCar = (lightData) => {
   if (lightData > 3000) {
-    console.log(`조도센서가 차량 감지함. 5초 기다림`);
+    console.log(`조도센서가 차량 감지함. 5초 기다림..`);
 
     detectTimeout = setTimeout(() => {
       clearTimeout(buzzerTimeout);
