@@ -23,12 +23,13 @@ const NEO_COLOR = {
 let lightTimeout,
   detectTimeout,
   buzzerTimeout,
+  neopixelTimeout,
   timeout = 800; // 타이머제어용
 
 let lightdata = -1; // 조도값 측정데이터 저장용
 
-let neoRed = 0,
-  NeoGreen = 0;
+let pixelRed = 0,
+  pixelGreen = 0;
 
 ws281x.init({ count: NUM_LEDS, stripType: ws281x.WS2811_STRIP_GRB });
 ws281x.setBrightness(5);
@@ -170,11 +171,11 @@ process.on("SIGINT", () => {
 
 const sendPixelStatus = () => {
   io.sockets.emit("watch", {
-    neoRed,
-    NeoGreen,
+    pixelRed,
+    pixelGreen,
   });
 
-  setTimeout(sendPixelStatus, 1000);
+  neopixelTimeout = setTimeout(sendPixelStatus, 1000);
 };
 const server = http.createServer(serverBody);
 const io = socketio.listen(server);
@@ -189,6 +190,7 @@ io.sockets.on("connection", (socket) => {
 
   socket.on("stopmsg", (data) => {
     console.log(`중지 메세지 수신`);
+    clearTimeout(neopixelTimeout);
     clearTimeout(lightTimeout);
     clearTimeout(detectTimeout);
     clearTimeout(detectTimeout);

@@ -10,8 +10,9 @@
             let socket = io.connect();
             let widthCount = 1;
 
-            socket.on('watch', (lightData)=>{
-                console.log(`red: ${lightData.red}, green: ${lightData.green}`)
+            socket.on('watch', (data)=>{
+                const { pixelRed, pixelGreen} = data;
+                console.log(`red: ${pixelRed}, green: ${pixelGreen}`)
                 // Plotly.extendTraces('chart',{y:[[lightData],[]]}, [0,1]);
                 // widthCount++;
 
