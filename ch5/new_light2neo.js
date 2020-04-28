@@ -22,10 +22,6 @@ const light = mcpadc.openMcp3208(LIGHT, { speedHz }, (err) => {
   if (err) console.log(`채널 0 초기화 실패`);
 });
 
-const getLedPercent = (lightdata) => {
-	console.log(`${Math.floor((lightdata / 4096) *100)}%`);
-	return Math.floor((lightdata / 4096) * NUM_LEDS);
-};
 const analogLight = () => {
   light.read((err, reading) => {
     console.log(`▲▽ ${reading.rawValue}`);
@@ -36,16 +32,13 @@ const analogLight = () => {
 
     ledTime(getLedPercent(lightdata));
 
-    // if (lightdata > 2200) {
-    //   ledTime(NUM_LEDS);
-    // } else if (lightdata < 1000) {
-    //   ledTime(NUM_LEDS);
-    // } else {
-    //   ledTime(NUM_LEDS / 2);
-    // }
-
     timerId = setTimeout(analogLight, timeout);
   }
+};
+
+const getLedPercent = (lightdata) => {
+  console.log(`${Math.floor((lightdata / 4096) * 100)}%`);
+  return Math.floor((lightdata / 4096) * NUM_LEDS);
 };
 
 const serverBody = (req, res) => {
@@ -66,11 +59,11 @@ const ledOn = (color, max) => {
 const ledTime = (max) => {
   ledOn({ r: 180, g: 0, b: 0 }, max);
 
-     for (let i = 0; i < max; i++) {
-       ws281x.setPixelColor(i, { r: 0, g: 0, b: 0 });
-       ws281x.show();
-       gpio.delay(100);
-     }
+  for (let i = 0; i < max; i++) {
+    ws281x.setPixelColor(i, { r: 0, g: 0, b: 0 });
+    ws281x.show();
+    gpio.delay(100);
+  }
 };
 
 process.on("SIGINT", () => {
