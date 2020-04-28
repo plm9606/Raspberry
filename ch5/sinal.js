@@ -4,7 +4,6 @@ const gpio = require("node-wiring-pi");
 const socketio = require("socket.io");
 const mcpadc = require("mcp-spi-adc");
 const ws281x = require("@bartando/rpi-ws281x-neopixel");
-
 const CS_MCP3208 = 10, // CE0 is set
   speedHz = 1000000, // colck speed = 1Mhz
   LIGHT = 0, // adc 0번째 채널 선택 = 아날로그센서
@@ -25,7 +24,11 @@ let lightTimeout,
   detectTimeout,
   buzzerTimeout,
   timeout = 800; // 타이머제어용
+
 let lightdata = -1; // 조도값 측정데이터 저장용
+
+let neoRed = 0,
+  NeoGreen = 0;
 
 ws281x.init({ count: NUM_LEDS, stripType: ws281x.WS2811_STRIP_GRB });
 ws281x.setBrightness(5);
@@ -41,10 +44,10 @@ const analogLight = () => {
     lightdata = reading.rawValue;
   });
   if (lightdata != -1) {
-    io.sockets.emit("watch", {
-      red: gpio.digitalRead(RED),
-      green: gpio.digitalRead(GREEN),
-    });
+    // io.sockets.emit("watch", {
+    //   red: gpio.digitalRead(RED),
+    //   green: gpio.digitalRead(GREEN),
+    // });
 
     detectCar(lightdata);
 
@@ -165,14 +168,23 @@ process.on("SIGINT", () => {
   process.exit();
 });
 
+const sendPixelStatus = () => {
+  io.sockets.emit("watch", {
+    neoRed,
+    NeoGreen,
+  });
+
+  setTimeout(sendPixelStatus, 1000);
+};
 const server = http.createServer(serverBody);
 const io = socketio.listen(server);
 
 io.sockets.on("connection", (socket) => {
   socket.on("startmsg", (data) => {
-    console.log(`가동 메세지 수신(측정주기: ${data})`);
+    console.log(`가동 메세지 수신`);
     timeout = data;
     analogLight();
+    sendPixelStatus();
   });
 
   socket.on("stopmsg", (data) => {
