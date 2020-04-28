@@ -24,8 +24,9 @@ function timoutHandler() {
 }
 
 gpio.setup("wpi");
-gpio.pinMode(LEDPIN, gpio.OUTPUT);
-() => {
+gpio.pinMode(RED, gpio.OUTPUT);
+gpio.pinMode(GREEN, gpio.OUTPUT);
+(() => {
   gpio.digitalWrite(RED, 1);
-};
+})();
 setTimeout(timoutHandler, 1000);
