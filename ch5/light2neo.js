@@ -28,7 +28,7 @@ const analogLight = () => {
     lightdata = reading.rawValue;
   });
   if (lightdata != -1) {
-    socketio.emit("watch", lightdata);
+    io.sockets.emit("watch", lightdata);
 
     if (lightdata > 2200) {
       ledTime(NUM_LEDS);
@@ -71,4 +71,27 @@ process.on("SIGINT", () => {
   console.log(`MCP-ADC가 해제되어, 웹서버를 종료합니다`);
   ws281x.reset();
   process.exit();
+});
+
+const server = http.createServer(serverBody);
+const io = socketio.listen(server);
+io.sockets.on("connection", (socket) => {
+  socket.on("startmsg", (data) => {
+    console.log(`가동 메세지 수신(측정주기: ${data})`);
+    timeout = data;
+    analogLight();
+  });
+
+  socket.on("stopmsg", (data) => {
+    console.log(`중지 메세지 수신`);
+    clearTimeout(timerId);
+  });
+});
+
+server.listen(65001, () => {
+  gpio.wiringPiSetup();
+  gpio.pinMode(CS_MCP3208, gpio.OUTPUT);
+  console.log(`--------------------------------------------`);
+  console.log(`아날로그 조도센서 측정 및 실시간 모니터링 웹서버`);
+  console.log(`---------------------------------------------`);
 });
