@@ -78,11 +78,15 @@ const pedestrianTrafficLights = {
     gpio.digitalWrite(BLUE, 0);
     gpio.digitalWrite(GREEN, 0);
     gpio.digitalWrite(RED, 1);
+    pixelRed = 1;
+    pixelGreen = 0;
   },
   turnGreen: function () {
     gpio.digitalWrite(BLUE, 0);
     gpio.digitalWrite(RED, 0);
     gpio.digitalWrite(GREEN, 1);
+    pixelRed = 0;
+    pixelGreen = 1;
   },
   isRed: function () {
     if (gpio.digitalRead(RED) == 1) return true;
