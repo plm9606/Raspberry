@@ -15,17 +15,21 @@
                 console.log(`red: ${pixelRed}, green: ${pixelGreen}`)
                 // Plotly.extendTraces('chart',{y:[[lightData],[]]}, [0,1]);
                 
-                Plotly.plot('graph', [{
-                    y: [[pixelRed],[]],
+                Plotly.plot('chart', [{
+                    y: [],
                     mode: 'lines+markers', 
                     marker: {color: 'red', size: 8},
                     line: {width: 4}
                     }, {
-                    y: [[pixelGreen],[]],
+                    y: [],
                     mode: 'lines+markers',
                     marker: {color: 'green', size:8},
                     line: {width: 4}
                 }]);
+
+                Plotly.extendTraces('chart', {
+                    y: [[pixelRed],[pixelGreen]]
+                }, [0, 1])
 
                 widthCount++;
 
