@@ -34,7 +34,7 @@
                 widthCount++;
 
                 if(widthCount > 100){
-                    Plotly.relayout('graph', {
+                    Plotly.relayout('chart', {
                         xaxis:{
                             range:[widthCount -99, widthCount]
                         }
@@ -62,9 +62,9 @@
     </hr>
     <div id="chart">
         <script>
-            let lightValue = {y:[0], name: 'Light', type:'line', marker:{color:"rgb(255,0,0)"},
-                                line:{shape:'spline'}};
-            Plotly.plot('chart', [lightValue]);
+            // let lightValue = {y:[0], name: 'Light', type:'line', marker:{color:"rgb(255,0,0)"},
+            //                     line:{shape:'spline'}};
+            // Plotly.plot('chart', [lightValue]);
         </script>
     </div>
 </body>
