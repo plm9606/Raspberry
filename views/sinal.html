@@ -42,29 +42,23 @@
     <title>조도센서 모니터링</title>
 </head>
 <body>
-    <h2>조도센서 아날로그 측정</h2>
+    <h2>조도센서 신호등 데모</h2>
     <hr>
       <input type="button" id="start" value="측정 가동">
       <input type="button" id="stop" value="측정 중지">  
     </hr>
     <div id="chart">
         <script>
-            // let lightValue = {y:[0], name: 'Light', type:'line', marker:{color:"rgb(255,0,0)"},
-            //                     line:{shape:'spline'}};
-            // Plotly.plot('chart', [lightValue]);
-
             Plotly.plot('chart', [{
                     y: [],
                     type:'line', 
-                    marker: {color: 'red', size: 8},
-                    line: {width: 2},
+                    marker: {color: 'red'},
                     line:{shape:'spline'},
                     name:'RED'
                     }, {
                     y: [],
                     type:'line',
-                    marker: {color: 'green', size:8},
-                    line: {width: 2},
+                    marker: {color: 'green'},
                     line:{shape:'spline'},
                     name:'GREEN'
                 }]);
