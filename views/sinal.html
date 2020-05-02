@@ -14,15 +14,28 @@
                 const { pixelRed, pixelGreen} = data;
                 console.log(`red: ${pixelRed}, green: ${pixelGreen}`)
                 // Plotly.extendTraces('chart',{y:[[lightData],[]]}, [0,1]);
-                // widthCount++;
+                
+                Plotly.plot('graph', [{
+                    y: [[pixelRed],[]],
+                    mode: 'lines+markers', 
+                    marker: {color: 'red', size: 8},
+                    line: {width: 4}
+                    }, {
+                    y: [[pixelGreen],[]],
+                    mode: 'lines+markers',
+                    marker: {color: 'green', size:8},
+                    line: {width: 4}
+                }]);
 
-                // if(widthCount > 100){
-                //     Plotly.relayout('chart', {
-                //         xaxis:{
-                //             range:[widthCount -99, widthCount]
-                //         }
-                //     })
-                // }
+                widthCount++;
+
+                if(widthCount > 100){
+                    Plotly.relayout('graph', {
+                        xaxis:{
+                            range:[widthCount -99, widthCount]
+                        }
+                    })
+                }
             })
 
             document.getElementById('start').onclick = function(){
