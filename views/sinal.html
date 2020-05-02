@@ -13,23 +13,6 @@
             socket.on('watch', (data)=>{
                 const { pixelRed, pixelGreen} = data;
                 console.log(`red: ${pixelRed}, green: ${pixelGreen}`)
-                // Plotly.extendTraces('chart',{y:[[lightData],[]]}, [0,1]);
-                
-                Plotly.plot('chart', [{
-                    y: [],
-                    type:'line', 
-                    marker: {color: 'red', size: 8},
-                    line: {width: 2},
-                    line:{shape:'spline'},
-                    name:'RED'
-                    }, {
-                    y: [],
-                    type:'line',
-                    marker: {color: 'green', size:8},
-                    line: {width: 2},
-                    line:{shape:'spline'},
-                    name:'GREEN'
-                }]);
 
                 Plotly.extendTraces('chart', {
                     y: [[pixelRed],[pixelGreen]]
@@ -69,6 +52,22 @@
             // let lightValue = {y:[0], name: 'Light', type:'line', marker:{color:"rgb(255,0,0)"},
             //                     line:{shape:'spline'}};
             // Plotly.plot('chart', [lightValue]);
+
+            Plotly.plot('chart', [{
+                    y: [],
+                    type:'line', 
+                    marker: {color: 'red', size: 8},
+                    line: {width: 2},
+                    line:{shape:'spline'},
+                    name:'RED'
+                    }, {
+                    y: [],
+                    type:'line',
+                    marker: {color: 'green', size:8},
+                    line: {width: 2},
+                    line:{shape:'spline'},
+                    name:'GREEN'
+                }]);
         </script>
     </div>
 </body>
