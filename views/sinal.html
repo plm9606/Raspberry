@@ -17,14 +17,18 @@
                 
                 Plotly.plot('chart', [{
                     y: [],
-                    mode: 'lines+markers', 
+                    type:'line', 
                     marker: {color: 'red', size: 8},
-                    line: {width: 4}
+                    line: {width: 2},
+                    line:{shape:'spline'},
+                    name:'RED'
                     }, {
                     y: [],
-                    mode: 'lines+markers',
+                    type:'line',
                     marker: {color: 'green', size:8},
-                    line: {width: 4}
+                    line: {width: 2},
+                    line:{shape:'spline'},
+                    name:'GREEN'
                 }]);
 
                 Plotly.extendTraces('chart', {
