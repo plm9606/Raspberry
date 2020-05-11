@@ -1,4 +1,4 @@
-const gpio = require("node-wiring-pi");
+// const gpio = require("node-wiring-pi");
 const bleno = require("@abandonware/bleno");
 const ws281x = require("@bartando/rpi-ws281x-neopixel");
 const util = require("util");
@@ -108,6 +108,7 @@ bleno.on("advertisingStart", function (err) {
 
 function exit() {
   console.log(`블루투스> 프로그램을 종료합니다`);
+  ws281x.reset();
   process.exit();
 }
 
@@ -116,13 +117,13 @@ function setNeoPixel(rssi) {
   for (let i = 0; i < activeLedCount; i++) {
     ws281x.setPixelColor(i, ledStateToRgb());
     ws281x.show();
-    gpio.delay(1);
+    // gpio.delay(1);
   }
 
   for (let i = activeLedCount; i < LED_COUNT; i++) {
     ws281x.setPixelColor(i, { r: 0, g: 0, b: 0 });
     ws281x.show();
-    gpio.delay(1);
+    // gpio.delay(1);
   }
 }
 
@@ -134,5 +135,4 @@ function ledStateToRgb() {
 }
 
 process.on("SIGINT", exit);
-gpio.wiringPiSetup();
-gpio.pinMode(LED, gpio.OUTPUT);
+// gpio.wiringPiSetup();
