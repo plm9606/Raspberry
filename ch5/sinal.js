@@ -45,14 +45,7 @@ const analogLight = () => {
     lightdata = reading.rawValue;
   });
   if (lightdata != -1) {
-    // io.sockets.emit("watch", {
-    //   red: gpio.digitalRead(RED),
-    //   green: gpio.digitalRead(GREEN),
-    // });
-
     detectCar(lightdata);
-
-    // lightTimeout = setTimeout(analogLight, timeout);
   }
 };
 
@@ -111,7 +104,7 @@ const buzzer = {
 
 const detectCar = (lightData) => {
   if (lightData > 3000) {
-    console.log(`조도센서가 차량 감지함. 5초 기다림..`);
+    console.log(`조도센서가 차량 감지함. 5초 기다림`);
 
     detectTimeout = setTimeout(() => {
       clearTimeout(buzzerTimeout);
