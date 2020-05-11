@@ -113,7 +113,8 @@ function exit() {
 }
 
 function setNeoPixel(rssi) {
-  const activeLedCount = 12 - Math.abs(-(rssi + 20) / 2);
+  const activeLedCount = 12 - Math.floor(-(rssi + 20) / 12);
+	console.log(`rssi: ${rssi}, led개수: ${activeLedCount}`)
   for (let i = 0; i < activeLedCount; i++) {
     ws281x.setPixelColor(i, ledStateToRgb());
     ws281x.show();

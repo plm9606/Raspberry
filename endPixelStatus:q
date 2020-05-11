@@ -1,0 +1,373 @@
+[33mcommit 924c4827dadf466ad244578144d85f2544c55caa[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Wed Apr 29 02:38:36 2020 +0900
+
+    feat: 실습2 html 뷰 생성
+
+[33mcommit 6bf4217730ab0093dc49b59ea249492865830b92[m
+Author: aram <plm9606@naver.com>
+Date:   Wed Apr 29 02:00:43 2020 +0900
+
+    리눅스로 커밋함
+
+[33mcommit e73f4a9f1782cd563749a80bfc8739d9aaaf283a[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Wed Apr 29 01:59:12 2020 +0900
+
+    refactor: 일정간격으로 울리는 부저함수 객체리터럴로 수정
+
+[33mcommit 1f7de8a88be3e4e1b0805decfa885cafce56922b[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Wed Apr 29 01:57:39 2020 +0900
+
+    refactor: setTimeout 저장하는 변수명 수정
+
+[33mcommit afdf43716d73a6c23bd280bbd2f5815ccc5dde20[m
+Author: Aram <aram2@kaako.com>
+Date:   Wed Apr 29 01:53:46 2020 +0900
+
+    fix: 비동기 로직 수정
+    
+    동기 delay삭제 후 setTimeout으로 변경
+    3색 led가 빨간불일 때만 setTimeout 콜백들을 제거하도록 수정
+    부저 일정 간격으로 울리도록 setTimeout/clearTimeout 설정
+    객체리터럴이었던 함수 일반함수로 변경 후 부저 setTimeout 적용
+
+[33mcommit 013501e3b477462ce1996944c0996dcdbeeeef4c[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Wed Apr 29 00:25:38 2020 +0900
+
+    feat: 실습2번 문제
+    
+    (cherry picked from commit 012e59f05b0988fa7496a7f1a60479571e6d932b)
+
+[33mcommit b98efee4de32257d557a05d8e8297f0b28b48bb2[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Tue Apr 28 14:36:10 2020 +0900
+
+    chore: 주석 정리
+
+[33mcommit 529cf9416252ca2d90caaa608c3072bea7723b4a[m
+Author: aram <plm9606@naver.com>
+Date:   Tue Apr 28 14:35:21 2020 +0900
+
+    fix: 조도의 비율에 따라 led개수 계산하는 함수 추가
+
+[33mcommit dc308ba1df6b22664e2adfd5f7155c08f99d2ae8[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Tue Apr 28 14:28:05 2020 +0900
+
+    feat: 실습과제 1번
+
+[33mcommit 1276282b873ab66869278e32c2b3a31e89190ef6[m
+Author: aram <plm9606@naver.com>
+Date:   Tue Apr 28 13:09:19 2020 +0900
+
+    chore: view 디렉토리 이름 변경
+
+[33mcommit 067ff36b33e3f0694eb692ead4089f287cce1323[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Tue Apr 28 12:56:03 2020 +0900
+
+    fix: 누락된 서버 생성 부분 추가
+
+[33mcommit 2e8ada6dbf393a7eef3b72a3a9256947e92bb1d8[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Tue Apr 28 12:52:56 2020 +0900
+
+    feat: 조도센서를 이용해 실시간 탐지 서버생성
+
+[33mcommit 3fff2deadbe1d4b8673128e7431f4086a7be190d[m
+Author: aram <plm9606@naver.com>
+Date:   Tue Apr 28 12:20:03 2020 +0900
+
+    chore: adc 모듈, socket.io 설치
+
+[33mcommit 8fe77986e1ef0c7282d0b341c592f6f778699bb3[m
+Author: aram <plm9606@naver.com>
+Date:   Sun Apr 26 02:49:13 2020 +0900
+
+    fix: 버튼 처음(한번)누르면 바로 센서모드로 되도록 수정
+
+[33mcommit 78fcac7351d3c56833e72bd03092851578093d5f[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Sun Apr 26 02:45:17 2020 +0900
+
+    refactor: 공통로직 함수로 추출 및 코드 정리
+
+[33mcommit f587b12f199dd010616efe4f2ecd6f86d349b460[m
+Author: aram <plm9606@naver.com>
+Date:   Sun Apr 26 02:40:05 2020 +0900
+
+    fix: 버튼 누른 count 계산하는 로직 위치 변경
+
+[33mcommit 1b340b3976b04e5698d99ef96666f769ce4e112b[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Sun Apr 26 02:32:47 2020 +0900
+
+    fix:오타 수정
+
+[33mcommit 2cee86a7d05b5e5159fd2696b931cf61aa61271d[m
+Merge: 1bb423b 5aaa0d6
+Author: aram <plm9606@naver.com>
+Date:   Sun Apr 26 02:29:12 2020 +0900
+
+    Merge branch 'master' of https://github.com/plm9606/Raspberry
+
+[33mcommit 1bb423be3090331090224a22b246924ba1d0d74a[m
+Author: aram <plm9606@naver.com>
+Date:   Sun Apr 26 02:29:08 2020 +0900
+
+    fix: neopixel default RGB mode 변경
+
+[33mcommit 5aaa0d6674444c20ad50bb5a22fd82417e4f2f09[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Sun Apr 26 02:28:19 2020 +0900
+
+    fix: 부저스피커 0.1초만 울리도록 수정
+
+[33mcommit bd7abd622e937efcc59686aa6cf8f6952365c015[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Sun Apr 26 02:25:48 2020 +0900
+
+    fix: 함수명 오타 수정
+
+[33mcommit 48fbce5579e8757f95fd7feb2820c9289881b646[m
+Merge: fff7fe3 371da67
+Author: plm9606 <plm9606@naver.com>
+Date:   Sun Apr 26 02:24:34 2020 +0900
+
+    Merge branch 'master' of https://github.com/plm9606/Raspberry
+
+[33mcommit fff7fe327c2f4ea833c6435d950841df0d885fdd[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Sun Apr 26 02:24:27 2020 +0900
+
+    fix: 과제2 neopixel을 사용하도록 로직 변경
+
+[33mcommit c2c9896ca1c7401fbd1046a5dd718b4b3ca64a34[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Sun Apr 26 02:23:56 2020 +0900
+
+    chore: 파일명 변경
+
+[33mcommit 371da67c98bcb0bbbbba3bfcd74c21fd993bb51e[m
+Author: aram <plm9606@naver.com>
+Date:   Sun Apr 26 02:02:34 2020 +0900
+
+    fix:  strip types 초기값 GRB로 변경
+    
+    led color wirte시 r과 g값이 변경되어서 색상이 출력되는 문제 해결
+
+[33mcommit 28a3414d97ac9b1ed753494c9dcfd66d37608813[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Sat Apr 25 22:11:27 2020 +0900
+
+    fix: led를 켰다가 꺼질수 있도록 로직 수정
+
+[33mcommit 29684a34341dec53e0a3d4b196363faf774f0a29[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Sat Apr 25 22:07:33 2020 +0900
+
+    feat: 네오픽셀을 이용한 센서 컨트롤 예제
+
+[33mcommit 52f29c3ded185e502198b1d4473683140e4789a7[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Tue Apr 21 14:47:15 2020 +0900
+
+    fix: 부저 2번 울리는 함수 수정
+    
+    한번 멈췄다가 2번 울린 후 다시 멈추도록 수정함
+    시간 간격 조정
+
+[33mcommit f094f30134014363d5279a7bb91329c31d1226f4[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Tue Apr 21 14:45:14 2020 +0900
+
+    fix: 초음파센서 flag 추가
+
+[33mcommit 1f19fb942d2e231fe13252dfb1168610e5a059b6[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Tue Apr 21 14:38:26 2020 +0900
+
+    fix: sleep함수 변경
+
+[33mcommit 23e97fc27bb4dd3f0907ca747319195bdd442f0e[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Tue Apr 21 14:33:19 2020 +0900
+
+    feat: 실습일지2 2번문제
+
+[33mcommit 2fd8150e2a56a2564adf1c6d8f818328a1986115[m
+Author: aram <plm9606@naver.com>
+Date:   Tue Apr 21 14:00:27 2020 +0900
+
+    fix: led 점등 거리 50cm 오타 수정
+
+[33mcommit 987f170a9d95789b4d84c294a60226622120e1a2[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Tue Apr 21 13:57:52 2020 +0900
+
+    fix: 5cm이내일 경우에만 led점등하도록 수정
+
+[33mcommit 8010cfc2ea9e31600b01a2ff51e4ed4bdfef6985[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Tue Apr 21 13:54:44 2020 +0900
+
+    fix: led 점등이 완료된 뒤에 trigger함수를 호출하도록 promise 적용
+
+[33mcommit 5a5e9516c0041190c04f0a30aaa2a62098c8f071[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Tue Apr 21 13:52:28 2020 +0900
+
+    fix: led 점등 시간 1초로 변경
+
+[33mcommit dae87e112c5fd8c3401b1b8d65590d1dc3dbe630[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Tue Apr 21 13:50:55 2020 +0900
+
+    feat: 초음파센서와 led를 이용한 예제3번
+
+[33mcommit 42e771f1b4daa9a7d9f55ac5016585dbb8bb5fdd[m
+Author: aram <plm9606@naver.com>
+Date:   Tue Apr 21 13:41:39 2020 +0900
+
+    chore: neopixel led 제어 모듈 설치
+
+[33mcommit 936ee0c77d42afb503c7f3a8ee898333cce02548[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Tue Apr 21 13:37:36 2020 +0900
+
+    fix: button 입력 받는 구문 삭제
+
+[33mcommit 1fedf327ceb30634c9ecbdff8d78ae8533d89537[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Tue Apr 21 13:36:06 2020 +0900
+
+    feat: 초음파 센서 모듈 스크립트
+
+[33mcommit 06369754086119a2bd66da9d5d4abcb434bebee4[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Tue Apr 21 11:32:05 2020 +0900
+
+    fix: 채터링해결을 위해 promise 사용
+
+[33mcommit a4842ef5e958841f8010216c7c7b4dd1a15b00da[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Tue Apr 21 11:26:43 2020 +0900
+
+    feat: 버튼으로 led제어
+
+[33mcommit 5c911eeda346ec4b49dbd30064307e60ffd6b3ec[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Tue Apr 21 11:04:33 2020 +0900
+
+    chore: 날짜별 디렉토리 추가
+
+[33mcommit f38e243fdd3ec040eae5eb8bf2f7146de3a4a8f7[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Wed Apr 15 22:32:49 2020 +0900
+
+    chore: node_modules 제거
+
+[33mcommit 97fbba799e9fc0d242268517c12dcef064d34a4c[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Wed Apr 15 22:31:44 2020 +0900
+
+    chore: gitignore 설정
+
+[33mcommit 5430d1d03659489061d209f932184c1a25d0757b[m
+Author: aram <plm9606@naver.com>
+Date:   Tue Apr 14 14:34:21 2020 +0900
+
+    fix: 두번 호출하는 버그 fix
+
+[33mcommit 4878b25b4dc9a2c7b8eca71f06e08c1dd1fe6f8d[m
+Author: aram <plm9606@naver.com>
+Date:   Tue Apr 14 14:21:17 2020 +0900
+
+    fix: 참조호출 수정
+
+[33mcommit 485f18811ce784d761344b487443d7333cba4e7b[m
+Author: aram <plm9606@naver.com>
+Date:   Tue Apr 14 14:18:38 2020 +0900
+
+    feat: buzzer와 led 동시 제어
+
+[33mcommit dd543b08d8ce059f8dbc19fbeeadd8fa170aa22f[m
+Author: aram <plm9606@naver.com>
+Date:   Tue Apr 14 14:10:57 2020 +0900
+
+    feat: buzzer 실습
+
+[33mcommit 6226070ca770f1f210209dc2dfd5b7372d78fc2a[m
+Author: aram <plm9606@naver.com>
+Date:   Tue Apr 14 13:23:12 2020 +0900
+
+    fix: setTimeout을 이용해서 시간계산하도록 변경
+
+[33mcommit fe71c4a6f088af2d93f57e3e35bc9cc7f32df1e8[m
+Author: aram <plm9606@naver.com>
+Date:   Tue Apr 14 13:17:06 2020 +0900
+
+    feat: timer함수 추가
+
+[33mcommit 60587b293ed700fa9f6e40a6e68ce7966bf6bb21[m
+Author: aram <plm9606@naver.com>
+Date:   Tue Apr 14 13:14:18 2020 +0900
+
+    feat: 과제1
+
+[33mcommit 0febce1f4f9461fd56c1f030aa39195b7dabb483[m
+Author: aram <plm9606@naver.com>
+Date:   Tue Apr 14 13:11:04 2020 +0900
+
+    fix: process exit 구문 추가
+
+[33mcommit d8364f69635f9239deeee7678ef8a63a09a6f294[m
+Author: aram <plm9606@naver.com>
+Date:   Tue Apr 14 13:08:33 2020 +0900
+
+    feat: 프로그램 종료시 모든 led off
+
+[33mcommit 70474e5a38ff576d2bd1043188a381465f4bc279[m
+Author: aram <plm9606@naver.com>
+Date:   Tue Apr 14 12:09:42 2020 +0900
+
+    feat: 3색 led를 컨트롤
+
+[33mcommit 360135c77ca9b80f0c0d173e931fe0d7e9ff931e[m
+Author: aram <plm9606@naver.com>
+Date:   Tue Apr 14 11:56:57 2020 +0900
+
+    feat: flag 변경 함수 추가
+
+[33mcommit b8d4647ee9ec09971a418b750a615b6bffe9f488[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Tue Apr 14 11:49:11 2020 +0900
+
+    fix: 함수 오타 수정
+
+[33mcommit 87670ba405ab20e7caae6abc3c33e95e883d0acf[m
+Author: aram <plm9606@naver.com>
+Date:   Tue Apr 14 11:47:31 2020 +0900
+
+    chore: install node-wiring-pi
+
+[33mcommit a5282e4eb103db86216eba3bcd66b87b5d9c7274[m
+Author: plm9606 <plm9606@naver.com>
+Date:   Tue Apr 14 11:42:16 2020 +0900
+
+    feat: led on/off
+
+[33mcommit b7f8e917d734a9bda688482721ff8416bef54e72[m
+Author: aram <plm9606@naver.com>
+Date:   Tue Apr 14 11:33:35 2020 +0900
+
+    Update README.md
+
+[33mcommit 08020e19823216e629ea80e326ab134b78fdec1e[m
+Author: aram <arame@kakao.com>
+Date:   Tue Apr 14 11:32:45 2020 +0900
+
+    Initial commit
