@@ -10,7 +10,7 @@ const POWERED_ON = "poweredOn";
 let PrimaryService = bleno.PrimaryService;
 let Charactteristic = bleno.Characteristic;
 
-ws281x.init({ count: NUM_LEDS, stripType: ws281x.WS2811_STRIP_GRB });
+ws281x.init({ count: LED_COUNT, stripType: ws281x.WS2811_STRIP_GRB });
 ws281x.setBrightness(10);
 
 const switchCharacteristic = function () {
