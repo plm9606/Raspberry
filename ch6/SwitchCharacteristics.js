@@ -3,7 +3,7 @@ const gpio = require("node-wiring-pi");
 
 class SwitchCharacteristic extends bleno.Characteristic {
   constructor(ledState, LED) {
-    super.call(this, {
+    super({
       uuid: "ff11",
       properties: ["read", "write"],
       descriptors: [
