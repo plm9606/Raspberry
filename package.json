@@ -19,6 +19,7 @@
   "dependencies": {
     "@abandonware/bleno": "^0.5.1-2",
     "@abandonware/noble": "^1.9.2-8",
+    "@bartando/rpi-ws281x-neopixel": "^1.0.1",
     "mcp-spi-adc": "^3.1.0",
     "node-wiring-pi": "0.0.5",
     "socket.io": "^2.3.0"
