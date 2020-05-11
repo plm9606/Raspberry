@@ -4,6 +4,7 @@ const util = require("util");
 const LED = 28;
 let ledState = 0; // led 켜진 상태
 let nodeName = "neogachon01";
+const POWERED_ON = "poweredOn";
 
 let PrimaryService = bleno.PrimaryService;
 let Charactteristic = bleno.Characteristic;
@@ -104,5 +105,3 @@ function exit() {
 process.on("SIGINT", exit);
 gpio.wiringPiSetup();
 gpio.pinMode(LED, gpio.OUTPUT);
-// class SwitchCharacteristic extends Charactteristic {}
-const POWERED_ON = "poweredOn";
