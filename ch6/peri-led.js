@@ -28,7 +28,7 @@ switchCharacteristic.prototype.onReadRequest = (offset, cb) => {
   let data = Buffer.alloc(1);
   console.log(`블루투스> 데이터 수신(read 요청)`);
   data[0] = ledState;
-  cb(this.RESULT_SUCCESS.data); // central기기로 data 전송
+  cb(this.RESULT_SUCCESS, data); // central기기로 data 전송
 };
 
 switchCharacteristic.prototype.onWriteRequest = (
@@ -40,7 +40,7 @@ switchCharacteristic.prototype.onWriteRequest = (
   if (data[0]) {
     // central에서 온 data가 1이라면
     console.log(
-      `블루투수> 데이터수신(read요청) ${data.toString("hex")} (LED ON)`
+      `블루투스> 데이터수신(read요청) ${data.toString("hex")} (LED ON)`
     );
     ledState = 1;
     gpio.digitalWrite(LED, ledState);
