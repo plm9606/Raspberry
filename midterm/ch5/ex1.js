@@ -12,11 +12,14 @@ const mcpadc = require("mcp-spi-adc");
 
 let ANALOG_LIGHT;
 const speedHz = 1000000; //1Mhz
+const CS_MCP3208 = 10; // CE0 is set
+const LIGHT_CHANNEL = 0;
 let lightData;
 
 gpio.wiringPiSetup();
+gpio.pinMode(CS_MCP3208, gpio.OUTPUT);
 
-const LIGHT = mcpadc.openMcp3208(0, { speedHz }, (err) => {
+const LIGHT = mcpadc.openMcp3208(LIGHT_CHANNEL, { speedHz }, (err) => {
   console.log(`spi channel 0 초기화 완료`);
   if (err) console.log(`spi channel 0 초기화 실패`);
 });
