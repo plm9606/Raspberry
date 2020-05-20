@@ -12,7 +12,8 @@ ws281x.init({ count: 12, stripType: ws281x.WS2811_STRIP_GRB });
 ws281x.setBrightness(50);
 
 process.on("SIGINT", () => {
-  gpio.digitalWrite();
+  gpio.digitalWrite(TRIG, 0);
+  gpio.digitalWrite(ECHO, 0);
   ws281x.reset();
   process.exit();
 });
@@ -37,6 +38,8 @@ function triggering() {
       turnOnLed(5);
     }
   }
+
+  setTimeout(triggering, 500);
 }
 
 function turnOnLed(count) {
