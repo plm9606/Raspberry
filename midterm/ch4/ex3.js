@@ -24,9 +24,9 @@ function triggering() {
   gpio.delayMicroseconds(20);
   gpio.digitalWrite(TRIG, 0);
 
-  while (gpio.digitalRead(ECHO, gpio.LOW));
+  while (gpio.digitalRead(ECHO) == gpio.LOW);
   startTime = gpio.micros();
-  while (gpio.digitalRead(ECHO, gpio.HIGH));
+  while (gpio.digitalRead(ECHO) == gpio.HIGH);
   detectTime = gpio.micros() - startTime;
 
   let distance = detectTime / 58;
