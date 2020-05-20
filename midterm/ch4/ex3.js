@@ -9,7 +9,7 @@ gpio.pinMode(TRIG, gpio.OUTPUT);
 gpio.pinMode(ECHO, gpio.INPUT);
 
 ws281x.init({ count: 12, stripType: ws281x.WS2811_STRIP_GRB });
-ws281x.setBrightness(50);
+ws281x.setBrightness(10);
 
 process.on("SIGINT", () => {
   gpio.digitalWrite(TRIG, 0);
@@ -46,6 +46,7 @@ function turnOnLed(count) {
   for (let i = 0; i < count; i++) {
     ws281x.setPixelColor(i, { r: 100, g: 0, b: 0 });
     ws281x.show();
+    gpio.delay(1);
   }
   for (let i = count; i < 12; i++) {
     ws281x.setPixelColor(i, { r: 0, g: 0, b: 0 });
