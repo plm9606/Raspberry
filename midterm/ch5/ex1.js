@@ -1,6 +1,6 @@
 const gpio = require("node-wiring-pi");
 const mcpadc = require("mcp-spi-adc");
-const socket = require("socket.io");
+// const socket = require("socket.io");
 // const fs = require("fs");
 // const server = require("http").createServer((req, res) => {
 //   fs.readFile("views/test.html", "utf-8", (err, read) => {
@@ -10,7 +10,7 @@ const socket = require("socket.io");
 // });
 // const io = socket.listen(server);
 
-const  ANALOG_LIGHT;
+let ANALOG_LIGHT;
 const speedHz = 1000000; //1Mhz
 let lightData;
 
@@ -21,9 +21,9 @@ const LIGHT = mcpadc.openMcp3208(0, { speedHz }, (err) => {
   if (err) console.log(`spi channel 0 초기화 실패`);
 });
 
-process.on('SIGINT', ()=>{
-    process.exit()
-})
+process.on("SIGINT", () => {
+  process.exit();
+});
 
 (function analogLight() {
   LIGHT.read((err, reading) => {
@@ -34,6 +34,5 @@ process.on('SIGINT', ()=>{
   });
 
   //   socket.emit();
-  ANALOG_LIGHT  = setTimeout(analogLight, 1000);
-}
-)();
+  ANALOG_LIGHT = setTimeout(analogLight, 1000);
+})();
