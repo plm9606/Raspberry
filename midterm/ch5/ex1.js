@@ -41,10 +41,9 @@ function analogLight() {
     if (err) throw err;
 
     console.log(reading.rawValue);
-    if (lightdata != -1) {
-      io.sockets.emit("watch", lightdata);
 
-      console.log(`${(lightdata / 4095) * 100}%`);
+    if (reading.rawValue != -1) {
+      console.log(`${(reading.rawValue / 4095) * 100}%`);
       socketServer.emit("watch", reading.rawValue);
     }
   });
