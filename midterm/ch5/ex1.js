@@ -35,3 +35,5 @@ process.on("SIGINT", () => {
   console.log(`MCP-ADC가 해제되어, 웹서버를 종료합니다`);
   process.exit();
 });
+
+analogLight();
