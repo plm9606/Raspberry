@@ -1,4 +1,4 @@
-const gpio = require("gpio");
+const gpio = require("node-wiring-pi");
 const LED = 29;
 
 function Pi() {
