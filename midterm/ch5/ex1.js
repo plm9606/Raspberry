@@ -1,25 +1,34 @@
 const gpio = require("node-wiring-pi");
 const mcpadc = require("mcp-spi-adc");
+const socketio = require("socket.io");
+const server = require("./server");
 
 const CS_MCP3208 = 10, // CE0 is set
   speedHz = 1000000, // colck speed = 1Mhz
   LIGHT = 0; // adc 0번째 채널 선택 = 아날로그센서
 
-let timerId,
-  timeout = 800; // 타이머제어용
+let timerId;
 let lightdata = -1; // 조도값 측정데이터 저장용
 
-// const light = mcpadc.open(LIGHT, { speedHz }, (err) => {
-//   console.log(`SPI 채널0 초기화 완료`);
-//   if (err) console.log(`채널 0 초기화 실패`);
-// });
-
+// 센서와 핀 초기화
 gpio.wiringPiSetup();
 gpio.pinMode(CS_MCP3208, gpio.OUTPUT);
 
-const lightSensor = mcpadc.open(LIGHT, { speedHz: 20000 }, (err) => {
+const lightSensor = mcpadc.open(LIGHT, { speedHz }, (err) => {
   if (err) throw err;
   analogLight();
+});
+
+// socket server
+const socketServer = socketio.listen(server);
+socketServer.on("connection", (socket) => {
+  socket.on("startmsg", (data) => {
+    console.log("가동메세지 수신");
+  });
+
+  socket.on("stopmsg", () => {
+    console.log("중지 메세지 수신");
+  });
 });
 
 process.on("SIGINT", () => {
@@ -36,6 +45,7 @@ function analogLight() {
       io.sockets.emit("watch", lightdata);
 
       console.log(`${(lightdata / 4095) * 100}%`);
+      socketServer.emit("watch", reading.rawValue);
     }
   });
   setTimeout(analogLight, 1000);
