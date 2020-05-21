@@ -8,7 +8,7 @@ bleno.on("stateChange", function (state) {
   if (state === "poweredOn") {
     // We will also advertise the service ID in the advertising packet,
     // so it's easier to find.
-    bleno.setAdvertising(NODE_NAME, [switchService.uuid], function (error) {
+    bleno.startAdvertising(NODE_NAME, [switchService.uuid], function (error) {
       if (err) console.log(err);
     });
   } else {
