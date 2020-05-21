@@ -131,11 +131,25 @@ Asynchronous read.
 
 Asynchronous close.
 
-## cb - completion callback `(err)=>{}`
+- cb - completion callback `(err)=>{}`
 
 ## bleno
 
 > advertiser(peripheral)용 모듈
+
+### startAdvertising(name, serviceUuids[, callback(error)])
+
+name
+
+- maximum 26 bytes
+
+service UUID's
+
+- 1 128-bit service UUID
+- 1 128-bit service UUID + 2 16-bit service UUID's
+- 7 16-bit service UUID
+
+### stopAdvertising([callback]);
 
 ## noble
 

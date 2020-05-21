@@ -2,9 +2,9 @@
 
 블루투스 4.0 BLE 장치는 `브로드캐스팅`(Broadcasting)와 `연결`(Connection)이라는 두 가지 방식으로 서로 통신할 수 있다.
 
-브로드캐스팅은 연결을 하지 않는 (`Connectionless`) 방식이며, 주변의 장치들에게 자신의 존재를 광고하는(advertizing) 데이터를 주기적으로 전송하거나 수신받는 방식이다. 이 방식을 사용하는 장치는 주기적으로 데이터 패킷을 전송하는 Broadcaster와 전송되는 광고 메시지를 반복해서 수신하는 Observer 의 역할로 나뉜다. 브로드캐스팅 방식은 전송하는 데이터가 최대 31바이트이므로(경우에 따라 추가로 31바이트를 더 송수신할 수 있다) 적은 양의 데이터를 여러 장치에게 주기적으로 전송해야 할 때 적합하다. 대표적인 예가 iBeacon가 같은 비콘 장치와 수신기이다.
+브로드캐스팅은 연결을 하지 않는 (`Connectionless`) 방식이며, 주변의 장치들에게 자신의 존재를 광고하는(advertizing) 데이터를 주기적으로 전송하거나 수신받는 방식이다. 이 방식을 사용하는 장치는 주기적으로 데이터 패킷을 전송하는 `Broadcaster`와 전송되는 광고 메시지를 반복해서 수신하는 `Observer` 의 역할로 나뉜다. 브로드캐스팅 방식은 전송하는 데이터가 최대 31바이트이므로(경우에 따라 추가로 31바이트를 더 송수신할 수 있다) **적은 양의 데이터를 여러 장치에게 주기적으로 전송해야 할 때** 적합하다. 대표적인 예가 `iBeacon`가 같은 비콘 장치와 수신기이다.
 
-반면에 `연결` 방식은 양방향 또는 많은 양의 데이터를 전송할 때 적합하다. 이 방식은 일반 블루투스 2.0처럼 두 장치 간에 일대일로 연결한 후 데이터를 전송하므로 브로드캐스팅 방식에 비해 훨씬 안전하다. 이 방식을 사용하는 장치는 광고 신호(advertising signal)를 스캔하다가 연결을 초기화하고 일단 연결되면 타이밍(timing)을 설정하고 주기적인 데이터 교환을 관리하는 `센트럴(Central)/마스터(Master)`와 광고 메시지를 주기적으로 보내고 마스터가 요청한 연결을 받아들이는 `페리퍼렐(Peripheral)/슬레이브(Slave)` 장치로 역할이 구분된다.
+반면에 `연결` 방식은 **양방향 또는 많은 양의 데이터를 전송할 때** 적합하다. 이 방식은 일반 블루투스 2.0처럼 두 장치 간에 일대일로 연결한 후 데이터를 전송하므로 브로드캐스팅 방식에 비해 훨씬 안전하다. 이 방식을 사용하는 장치는 광고 신호(advertising signal)를 스캔하다가 연결을 초기화하고 일단 연결되면 타이밍(timing)을 설정하고 주기적인 데이터 교환을 관리하는 `센트럴(Central)/마스터(Master)`와 광고 메시지를 주기적으로 보내고 마스터가 요청한 연결을 받아들이는 `페리퍼렐(Peripheral)/슬레이브(Slave)` 장치로 역할이 구분된다.
 
 블루투스 4.0 BLE의 프로토콜 스택 구조는 다음 그림과 같다. 예전 블루투스 1.0~2.0 용 동글에는 `SPP (Service Port Profile)` 을 통해 시리얼 통신이 가능하였다. 하지만, BLE 에서는 SPP 프로파일이 기본적으로 포함되어 있지 않으므로 이 방식을 사용할 수 없고 `GATT 프로파일`을 이용하여야 한다.
 
@@ -12,18 +12,17 @@
 
 # GAP
 
-GAP는 Generic Access Profile의 약자로 블루투스에서 게시(`advertising`)와 연결(`connection`)을 제어한다. GAP은 특정 장치가 다른 장치들에게 어떻게 보여지도록 할 것인가와 어떻게 두 장치를 연결할 것인가를 결정합니다. GAP은 장치들이 맡을 수 있는 다양한 역할들에 대해 정의합니다. 그 중 가장 핵심이 되는 컨셉은 Central 장치와 Peripheral 장치입니다.
+GAP는 Generic Access Profile의 약자로 블루투스에서 게시(`advertising`)와 연결(`connection`)을 제어한다. GAP은 특정 장치가 다른 장치들에게 어떻게 보여지도록 할 것인가와 어떻게 두 장치를 연결할 것인가를 결정한다. GAP은 장치들이 맡을 수 있는 다양한 역할들에 대해 정의한다. 그 중 가장 핵심이 되는 컨셉은 `Central` 장치와 `Peripheral` 장치이다.
 
-Peripheral 장치는 주로 작고, 저전력으로 동작하고, 제한된 리소스를 가진 장치들로 보다 리소스가 풍부한 Central 장치에 연결되어 동작하도록 설계된 장치입니다. Heart Rate Monitor(심박측정기), BLE 근접센서 태그 등이 해당됩니다. 이하 글에서는 이해의 편의를 위해 Peripheral 장치를 [센서 장치]로 표현합니다.
-
-Central 장치는 폰이나 태블릿과 같이 충분한 전원과 메모리 등의 리소스를 갖춘 장치입니다. 이하 글에서는 이해의 편의를 위해 [폰] 등으로 표현합니다.
+`Peripheral` 장치는 주로 작고, 저전력으로 동작하고, 제한된 리소스를 가진 장치들로 보다 리소스가 풍부한 `Central` 장치에 연결되어 동작하도록 설계된 장치이다. Heart Rate Monitor(심박측정기), BLE 근접센서 태그 등이 해당된다.
 
 # Advertising and Scan Response Data
 
-GAP을 이용해서 게시(Advertising)를 할 때 Advertising Data Payload와 Scan Response Payload 를 포함할 수 있습니다.
-두 가지는 서로 구분되며 31바이트까지 데이터를 포함할 수 있습니다. 하지만 Advertising Data Payload 가 필수인데 반해 Scan Response Payload는 선택적입니다. Advertising Data Payload 는 Central 장치가 인식할 수 있도록 peripheral 장치(센서장치)에서 계속 송출되는 데이터입니다. Scan Response Payload 는 central 장치(폰)에서 장치 이름과 같이 추가적인 정보를 요구하기 위해 정의된 것으로 선택적으로 구현됩니다.
+GAP을 이용해서 게시(Advertising)를 할 때 Advertising Data Payload와 Scan Response Payload 를 포함할 수 있다.
 
-![](http://www.hardcopyworld.com/ngine/aduino/wp-content/uploads/sites/3/2014/10/microcontrollers_GattStructure.png-)
+`Advertising Data Payload` 는 Central 장치가 인식할 수 있도록 peripheral 장치(센서장치)에서 계속 송출되는 데이터이다. `Scan Response Payload` 는 central 장치(폰)에서 장치 이름과 같이 추가적인 정보를 요구하기 위해 정의된 것으로 선택적으로 구현된다.
+
+두 가지는 서로 구분되며 31바이트까지 데이터를 포함할 수 있다. 하지만 `Advertising Data Payload` 가 필수인데 반해 `Scan Response Payload`는 선택적이다.
 
 ## 역할에 따른 구분
 
@@ -39,7 +38,7 @@ BLE 로 `연결`되기 위한 서로의 역할을 구분한 것이다.
 
 ### GATT SERVER(SLAVE) / GATT CLIENT(MASTER)
 
-> GATT(Generic Attribute Profile)는 두 BLE 장치간에 Service, Characteristic 을 이용해서 데이터를 주고 받는 방법을 정의한 것이다.
+> GATT(Generic Attribute Profile)는 두 BLE 장치간에 `Service`, `Characteristic` 을 이용해서 **데이터를 주고 받는 방법을 정의한 것**이다.
 
 **BLE 장치가 연결된 이후** 어떻게 서로 통신하는지에 대해 정의한다. 일반적으로 `peripheral` 장치(센서장치)가 `GATT server` 역할을 하며 GATT lookup data, service, characteristic 에 대한 정의를 가지고 있다.
 
