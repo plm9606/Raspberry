@@ -3,7 +3,7 @@ const LED = 29;
 
 function Pi() {
   gpio.wiringPiSetup();
-  gpio.pinMode();
+  gpio.pinMode(LED, gpio.OUTPUT);
 
   process.on("SIGINT", () => {
     gpio.digitalWrite(LED, 0);
