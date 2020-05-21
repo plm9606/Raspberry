@@ -135,4 +135,8 @@ Asynchronous close.
 
 ## bleno
 
+> advertiser(peripheral)용 모듈
+
 ## noble
+
+> observer(central)용 모듈
