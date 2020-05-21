@@ -19,33 +19,24 @@ gpio.pinMode(CS_MCP3208, gpio.OUTPUT);
 
 const lightSensor = mcpadc.open(LIGHT, { speedHz: 20000 }, (err) => {
   if (err) throw err;
-
-  setInterval((_) => {
-    lightSensor.read((err, reading) => {
-      if (err) throw err;
-
-      console.log(reading.value);
-    });
-  }, 1000);
+  analogLight();
 });
-
-// const analogLight = () => {
-//   light.read((err, reading) => {
-//     console.log(`▲▽ ${reading.rawValue}`);
-//     lightdata = reading.rawValue;
-//   });
-//   if (lightdata != -1) {
-//     io.sockets.emit("watch", lightdata);
-
-//     console.log(`${(lightdata / 4095) * 100}%`);
-
-//     timerId = setTimeout(analogLight, timeout);
-//   }
-// };
 
 process.on("SIGINT", () => {
   console.log(`MCP-ADC가 해제되어, 웹서버를 종료합니다`);
   process.exit();
 });
 
-// analogLight();
+function analogLight() {
+  lightSensor.read((err, reading) => {
+    if (err) throw err;
+
+    console.log(reading.rawValue);
+    if (lightdata != -1) {
+      io.sockets.emit("watch", lightdata);
+
+      console.log(`${(lightdata / 4095) * 100}%`);
+    }
+  });
+  setTimeout(analogLight, 1000);
+}
