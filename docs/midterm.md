@@ -4,46 +4,46 @@
 
 [ADC](#ADC)
 
-## gpio
+# gpio
 
 `const gpio = require("node-wiring-pi")`
 
-### wiringPiSetup();
+## wiringPiSetup();
 
 wiringPi를 초기화
 
-### pinMode(pin, mode);
+## pinMode(pin, mode);
 
 `mode`
 
 - `gpio.OUTPUT``
 - `gpio.INPUT`
 
-### digitalRead(pin)
+## digitalRead(pin)
 
 핀에서 읽은 값은 리턴
 `HIGH`(1) or `LOW`(0)
 
-### digitalWrite(pin, state);
+## digitalWrite(pin, state);
 
 `state`
 
 - `HIGH`(1)
 - `LOW`(0)
 
-### delay(milliseconds)
+## delay(milliseconds)
 
-### delayMicroseconds(microseconds)
+## delayMicroseconds(microseconds)
 
-### mills()
+## mills()
 
 Returns the number of milliseconds since the beginning running of the current program
 
-### micros()
+## micros()
 
 Returns the number of microseconds since the beginning running of the current program
 
-### wiringPiISR(pin, edgeType, callbask);
+## wiringPiISR(pin, edgeType, callbask);
 
 기존의 무한반복(polling) 대신에, 인터럽트 처리방식으로 센서측정하는 기법
 지정된 핀에서 지정된 인터럽트가 발생되면 콜백함수가 호출된다.
@@ -57,13 +57,11 @@ Returns the number of microseconds since the beginning running of the current pr
 - `INT_EDGE_BOTH`
 - `INT_EDGE_SETUP`
 
----
-
-## neoPixel
+# neoPixel
 
 `const ws281x = require("@bartando/rpi-ws281x-neopixel");`
 
-### init(options)
+## init(options)
 
 **options**
 
@@ -72,31 +70,29 @@ Returns the number of microseconds since the beginning running of the current pr
 
 ex. `ws281x.init({ count: NUM_LEDS, stripType: ws281x.WS2811_STRIP_GRB })`
 
-### setPixelColor(position, {r, g, b})
+## setPixelColor(position, {r, g, b})
 
-### setBrightness(brightness)
+## setBrightness(brightness)
 
 birghtness is `0` to `100`
 
-### getPixelColor: function (position) {}
+## getPixelColor: function (position) {}
 
-### show()
+## show()
 
 LED를 켠다
 
-### reset()
+## reset()
 
 모든 LED를 끈다
 
----
-
-## ADC
+# ADC
 
 `const mcpadc = require("mcp-spi-adc");`
 
-### open(channel[, options], cb)
+## open(channel[, options], cb)
 
-### openMcp3208(channel[, options], cb)
+## openMcp3208(channel[, options], cb)
 
 비동기로 adc채널을 open한다.
 
@@ -117,7 +113,7 @@ mcpadc.openMcp3208(LIGHT, { speedHz }, (err) => {
 });
 ```
 
-### adcChannel.read(cb)
+## adcChannel.read(cb)
 
 Asynchronous read.
 
@@ -127,17 +123,22 @@ Asynchronous read.
 
   - `reading`은 0과 1사이의 값인 `value`와 채널에서 읽은 값인 `rawValue`로 구성된 객체다.
 
-### adcChannel.close(cb)
+## adcChannel.close(cb)
 
 Asynchronous close.
 
 - cb - completion callback `(err)=>{}`
 
-## bleno
+# bleno
 
 > advertiser(peripheral)용 모듈
 
+## Advertising
+
 ### startAdvertising(name, serviceUuids[, callback(error)])
+
+\*\* 주의할점
+반드시 poweredOn상태인지를 확인해야 한다.
 
 name
 
@@ -149,8 +150,117 @@ service UUID's
 - 1 128-bit service UUID + 2 16-bit service UUID's
 - 7 16-bit service UUID
 
-### stopAdvertising([callback]);
+### bleno.stopAdvertising([callback]);
 
-## noble
+## Events
+
+### advertisingStart
+
+advertising 시작을 감지
+
+`bleno.on('advertisingStart', callback(error));`
+
+### advertisingStop
+
+advertising 종료를 감지
+
+`bleno.on('advertisingStop', callback);`
+
+### accept
+
+상대(central)가 수신 허용함
+
+`bleno.on('accept', callback(clientAddress)); // not available on OS X 10.9`
+
+### disconnect
+
+상대가 수신 종료함
+
+`bleno.on('disconnect', callback(clientAddress)); // Linux only`
+
+### rssiUpdate
+
+`bleno.on('rssiUpdate', callback(rssi)); // not available on OS X 10.9`
+
+## Characteristic
+
+```js
+var Characteristic = bleno.Characteristic;
+
+var characteristic = new Characteristic({
+    uuid: 'fffffffffffffffffffffffffffffff1', // or 'fff1' for 16-bit
+    properties: [ ... ], // 'read', 'write', 'writeWithoutResponse', 'notify', 'indicate'
+    secure: [ ... ], // enable security for properties
+    value: null, // optional static value, must be of type Buffer - for read only characteristics
+    descriptors: [
+        // see Descriptor for data type
+    ],
+    onReadRequest: null, // optional read request handler, function(offset, callback) { ... }
+    onWriteRequest: null, // optional write request handler, function(data, offset, withoutResponse, callback) { ...}
+    onSubscribe: null, // optional notify/indicate subscribe handler, function(maxValueSize, updateValueCallback) { ...}
+    onUnsubscribe: null, // optional notify/indicate unsubscribe handler, function() { ...}
+    onNotify: null, // optional notify sent handler, function() { ...}
+    onIndicate: null // optional indicate confirmation received handler, function() { ...}
+});
+```
+
+### Result codes
+
+- Characteristic.`RESULT_SUCCESS`
+- Characteristic.`RESULT_INVALID_OFFSET`
+- Characteristic.`RESULT_INVALID_ATTRIBUTE_LENGTH`
+- Characteristic.`RESULT_UNLIKELY_ERROR`
+
+### Read requests
+
+Can specify read request handler via constructor options or by extending Characteristic and overriding onReadRequest.
+
+Parameters to handler are
+
+- offset (0x0000 - 0xffff)
+- callback
+
+  callback must be called with result and data (of type Buffer) - can be async.
+
+```js
+var result = Characteristic.RESULT_SUCCESS;
+var data = new Buffer( ... );
+
+callback(result, data);
+```
+
+## Write requests
+
+Can specify write request handler via constructor options or by extending Characteristic and overriding onWriteRequest.
+
+Parameters to handler are
+
+- data (Buffer)
+- offset (0x0000 - 0xffff)
+- withoutResponse (true | false)
+- callback
+
+callback must be called with result code - can be async.
+
+```js
+var result = Characteristic.RESULT_SUCCESS;
+
+callback(result);
+```
+
+## Primary Service
+
+```js
+var PrimaryService = bleno.PrimaryService;
+
+var primaryService = new PrimaryService({
+  uuid: "fffffffffffffffffffffffffffffff0", // or 'fff0' for 16-bit
+  characteristics: [
+    // see Characteristic for data type
+  ],
+});
+```
+
+# noble
 
 > observer(central)용 모듈
