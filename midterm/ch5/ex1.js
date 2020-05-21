@@ -9,31 +9,43 @@ let timerId,
   timeout = 800; // 타이머제어용
 let lightdata = -1; // 조도값 측정데이터 저장용
 
-const light = mcpadc.openMcp3208(LIGHT, { speedHz }, (err) => {
-  console.log(`SPI 채널0 초기화 완료`);
-  if (err) console.log(`채널 0 초기화 실패`);
-});
+// const light = mcpadc.open(LIGHT, { speedHz }, (err) => {
+//   console.log(`SPI 채널0 초기화 완료`);
+//   if (err) console.log(`채널 0 초기화 실패`);
+// });
 
 gpio.wiringPiSetup();
 gpio.pinMode(CS_MCP3208, gpio.OUTPUT);
 
-const analogLight = () => {
-  light.read((err, reading) => {
-    console.log(`▲▽ ${reading.rawValue}`);
-    lightdata = reading.rawValue;
-  });
-  if (lightdata != -1) {
-    io.sockets.emit("watch", lightdata);
+const lightSensor = mcpadc.open(LIGHT, { speedHz: 20000 }, (err) => {
+  if (err) throw err;
 
-    console.log(`${(lightdata / 4095) * 100}%`);
+  setInterval((_) => {
+    lightSensor.read((err, reading) => {
+      if (err) throw err;
 
-    timerId = setTimeout(analogLight, timeout);
-  }
-};
+      console.log(reading.value);
+    });
+  }, 1000);
+});
+
+// const analogLight = () => {
+//   light.read((err, reading) => {
+//     console.log(`▲▽ ${reading.rawValue}`);
+//     lightdata = reading.rawValue;
+//   });
+//   if (lightdata != -1) {
+//     io.sockets.emit("watch", lightdata);
+
+//     console.log(`${(lightdata / 4095) * 100}%`);
+
+//     timerId = setTimeout(analogLight, timeout);
+//   }
+// };
 
 process.on("SIGINT", () => {
   console.log(`MCP-ADC가 해제되어, 웹서버를 종료합니다`);
   process.exit();
 });
 
-analogLight();
+// analogLight();
