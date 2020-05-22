@@ -154,6 +154,18 @@ service UUID's
 
 ## Events
 
+`bleno.on(EVENT, callback)`
+
+### stateChange
+
+블루투스 연결 상태 변화 감지
+
+```js
+state = <"unknown" | "resetting" | "unsupported" | "unauthorized" | "poweredOff" | "poweredOn">
+
+bleno.on('stateChange', callback(state));
+```
+
 ### advertisingStart
 
 advertising 시작을 감지
@@ -229,7 +241,7 @@ var data = new Buffer( ... );
 callback(result, data);
 ```
 
-## Write requests
+### Write requests
 
 Can specify write request handler via constructor options or by extending Characteristic and overriding onWriteRequest.
 
